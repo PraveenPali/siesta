@@ -13,7 +13,7 @@ internal extension String
     func stripPrefix(_ prefix: String) -> String
         {
         return hasPrefix(prefix)
-            ? self[characters.index(startIndex, offsetBy: prefix.characters.count) ..< endIndex]
+            ? String(self[index(startIndex, offsetBy: prefix.count) ..< endIndex])
             : self
         }
 
