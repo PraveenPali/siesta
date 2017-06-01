@@ -65,8 +65,8 @@ public struct Pipeline
                 "Pipeline.order contains duplicates: \(newValue)")
 
             let nonEmptyStages = stages
-                .filter { _, stage in !stage.isEmpty }
-                .map { key, _ in key }
+                .filter { !$0.1.isEmpty }
+                .map { $0.0 }
             let missingStages = Set(nonEmptyStages).subtracting(newValue)
             if !missingStages.isEmpty
                 { debugLog(.pipeline, ["WARNING: Stages", missingStages, "configured but not present in custom pipeline order, will be ignored:", newValue]) }
@@ -83,7 +83,7 @@ public struct Pipeline
         }
 
     internal var containsCaches: Bool
-        { return stages.any { $1.cacheBox != nil } }
+        { return stages.any { $0.1.cacheBox != nil } }
 
     /**
       Removes all transformers from all stages in the pipeline. Leaves caches intact.

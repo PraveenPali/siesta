@@ -56,17 +56,18 @@ internal extension Dictionary
     func mapDict<MappedKey, MappedValue>(transform: (Key, Value) -> (MappedKey, MappedValue))
         -> [MappedKey:MappedValue]
         {
-        return Dictionary.fromArray(map(transform))
+        return Dictionary.fromArray(map { transform($0.0, $0.1) })
         }
 
-    func flatMapDict<MappedKey, MappedValue>(transform: (Key, Value) -> (MappedKey?, MappedValue?))
+    func flatMapDict<MappedKey, MappedValue>(transform: (Key, Value) -> (MappedKey?, MappedValue?)?)
         -> [MappedKey:MappedValue]
         {
         return Dictionary.fromArray(
             flatMap
                 {
-                let (k, v) = transform($0, $1)
-                if let k = k, let v = v
+                if let (maybeK, maybeV) = transform($0.0, $0.1),
+                   let k = maybeK,
+                   let v = maybeV
                     { return (k, v) }
                 else
                     { return nil }

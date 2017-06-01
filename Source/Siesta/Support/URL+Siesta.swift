@@ -55,7 +55,7 @@ internal extension URL
 
         let newItems = queryDict
             .sorted { $0.0 < $1.0 }   // canonicalize order to help resource URLs be unique
-            .filter { $1 != nil }
+            .filter { $0.1 != nil }
             .map { URLQueryItem(name: $0.0, value: $0.1?.nilIfEmpty) }
 
         components.queryItems = newItems.isEmpty ? nil : newItems
