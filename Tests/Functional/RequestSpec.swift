@@ -140,7 +140,7 @@ class RequestSpec: ResourceSpecBase
                         service().configure
                             {
                             $0.decorateRequests
-                                { _ in dummyReq0() }
+                                { _,_ in dummyReq0() }
                             }
                         awaitFailure(resource().load(), alreadyCompleted: true)  // Nocilla will flag if network call goes through
                         }
@@ -253,13 +253,13 @@ class RequestSpec: ResourceSpecBase
 
             func expectResonseText(_ request: Request, text: String)
                 {
-                let expectation = QuickSpec.current().expectation(description: "response text")
+                let expectation = QuickSpec.current.expectation(description: "response text")
                 request.onSuccess
                     {
                     expectation.fulfill()
                     expect($0.typedContent()) == text
                     }
-                QuickSpec.current().waitForExpectations(timeout: 1)
+                QuickSpec.current.waitForExpectations(timeout: 1)
                 }
 
             let oldRequest = specVar
