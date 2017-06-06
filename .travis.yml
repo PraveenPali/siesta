@@ -5,7 +5,7 @@ branches:
 
 language: objective-c
 os: osx
-osx_image: xcode8.3
+osx_image: xcode9
 env:
   - scheme='Siesta macOS' platform='OS X'
   - scheme='Siesta iOS'   platform='iOS Simulator' ios_version='10.3' ios_device='iPhone SE'
@@ -62,7 +62,7 @@ script: |
 
   # Optional pre-download, because builds are so slow on Travis, and Carthage builds _everything_:
   echo "Downloading prebuilt dependencies"
-  curl https://innig.net/tmp/siesta-deps-swift3.tar.bz2 | bzcat | tar xv
+  curl https://innig.net/tmp/siesta-deps-swift4.tar.bz2 | bzcat | tar xv
 
   # Uncomment to build with Carthage instead:
   #echo "Building dependencies"
